@@ -13,7 +13,7 @@ http_archive(
     sha256 = "",
 )
 
-load("@slamdev_rules_yq//yq:deps.bzl", "yq_register_toolchains", "rules_yq_dependencies")
+load("@slamdev_rules_yq//yq:repositories.bzl", "yq_register_toolchains", "rules_yq_dependencies")
 
 rules_yq_dependencies()
 
