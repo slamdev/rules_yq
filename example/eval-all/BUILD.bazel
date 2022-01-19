@@ -1,0 +1,26 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load("//yq:defs.bzl", "yq_eval_all")
+
+yq_eval_all(
+    name = "actual",
+    srcs = ["sample.yaml"],
+    expression = '[{"kind": .kind, "name":.metadata.name}]',
+    indent = 0,
+    output_format = "json",
+)
+
+write_file(
+    name = "expected",
+    out = "out.json",
+    content = [
+        '[{"kind":"Service","name":"some-svc"},{"kind":"Deployment","name":"some-deployment"}]',
+        "",
+    ],
+)
+
+diff_test(
+    name = "check_eval",
+    file1 = ":expected",
+    file2 = ":actual",
+)

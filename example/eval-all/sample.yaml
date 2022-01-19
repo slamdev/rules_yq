@@ -1,0 +1,14 @@
+---
+# Source: app/templates/web/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: some-svc
+spec: {}
+---
+# Source: app/templates/web/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: some-deployment
+spec: {}

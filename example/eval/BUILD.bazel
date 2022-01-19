@@ -1,0 +1,24 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load("//yq:defs.bzl", "yq_eval")
+
+yq_eval(
+    name = "actual",
+    srcs = ["sample.yaml"],
+    expression = ".a.b",
+)
+
+write_file(
+    name = "expected",
+    out = "out.yaml",
+    content = [
+        "123",
+        "",
+    ],
+)
+
+diff_test(
+    name = "check_eval",
+    file1 = ":expected",
+    file2 = ":actual",
+)
